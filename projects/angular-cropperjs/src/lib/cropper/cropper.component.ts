@@ -14,14 +14,13 @@ export interface ImageCropperResult {
 }
 
 @Component({
-    selector: 'angular-cropper',
+    selector: 'lne-cropper',
     templateUrl: './cropper.component.html',
     styleUrls: ['./cropper.component.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class CropperComponent implements OnInit {
-
-    @ViewChild('image') image: ElementRef;
+    @ViewChild('image', { read: ElementRef, static: true }) image: ElementRef;
 
     @Input() imageUrl: any;
     @Input() settings: ImageCropperSetting;
@@ -32,58 +31,48 @@ export class CropperComponent implements OnInit {
     @Output() export = new EventEmitter<ImageCropperResult>();
     @Output() ready = new EventEmitter();
 
-    public isLoading: boolean = true;
+    public isLoading = true;
     public cropper: Cropper;
     public imageElement: HTMLImageElement;
     public loadError: any;
 
     constructor() { }
 
-    ngOnInit() {
-    }
+    public ngOnInit(): void {}
 
     /**
      * Image loaded
      * @param ev
      */
-    imageLoaded(ev: Event) {
-
-        //
+    public imageLoaded(ev: Event): void {
         // Unset load error state
         this.loadError = false;
 
-        //
         // Setup image element
         const image = ev.target as HTMLImageElement;
         this.imageElement = image;
 
-        //
         // Add crossOrigin?
-        console.log('this.cropperOptions', this.cropperOptions);
-        if (this.cropperOptions.checkCrossOrigin) image.crossOrigin = 'anonymous';
+        // console.log('this.cropperOptions', this.cropperOptions);
+        if (this.cropperOptions.checkCrossOrigin) {
+            image.crossOrigin = 'anonymous';
+        }
 
-        //
         // Image on ready event
         image.addEventListener('ready', () => {
-            //
             // Emit ready
             this.ready.emit(true);
 
-            //
             // Unset loading state
             this.isLoading = false;
 
-            //
             // Validate cropbox existance
             if (this.cropbox) {
-
-                //
                 // Set cropbox data
                 this.cropper.setCropBoxData(this.cropbox);
             }
         });
 
-        //
         // Setup aspect ratio according to settings
         let aspectRatio = NaN;
         if (this.settings) {
@@ -91,7 +80,6 @@ export class CropperComponent implements OnInit {
             aspectRatio = width / height;
         }
 
-        //
         // Set crop options
         // extend default with custom config
         this.cropperOptions = Object.assign({
@@ -103,7 +91,6 @@ export class CropperComponent implements OnInit {
             checkCrossOrigin: true
         }, this.cropperOptions);
 
-        //
         // Set cropperjs
         this.cropper = new Cropper(image, this.cropperOptions);
     }
@@ -112,9 +99,7 @@ export class CropperComponent implements OnInit {
      * Image load error
      * @param event
      */
-    imageLoadError(event: any) {
-
-        //
+    public imageLoadError(event: any): void {
         // Set load error state
         this.loadError = true;
 
@@ -127,9 +112,7 @@ export class CropperComponent implements OnInit {
      * Export canvas
      * @param base64
      */
-    exportCanvas(base64?: any) {
-
-        //
+    public exportCanvas(base64?: any): void {
         // Get and set image, crop and canvas data
         const imageData = this.cropper.getImageData();
         const cropData = this.cropper.getCropBoxData();

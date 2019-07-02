@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AngularCropperjsModule } from 'angular-cropperjs';
+import { CropperjsModule } from '@ln-e/cropperjs';
 
 @NgModule({
     declarations: [
@@ -10,7 +10,7 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
     ],
     imports: [
         BrowserModule,
-        AngularCropperjsModule
+        CropperjsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 /*
- * Public API Surface of angular-cropperjs
+ * Public API Surface of cropperjs
  */
 
-export * from './lib/angular-cropperjs.service';
+export * from './lib/cropperjs.service';
+export * from './lib/cropperjs.module';
 export * from './lib/cropper/cropper.component';
-export * from './lib/angular-cropperjs.module';

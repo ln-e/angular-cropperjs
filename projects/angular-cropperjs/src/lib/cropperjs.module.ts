@@ -3,10 +3,8 @@ import { CropperComponent } from './cropper/cropper.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
+    imports: [CommonModule],
     declarations: [CropperComponent],
     exports: [CropperComponent]
 })
-export class AngularCropperjsModule { }
+export class CropperjsModule { }
